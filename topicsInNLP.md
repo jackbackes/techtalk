@@ -1,9 +1,10 @@
-# "Sam I Am"
+### "Sam I Am"
+![alt-text](http://vignette3.wikia.nocookie.net/moviepedia/images/2/21/Sam-I-Am.png/revision/latest?cb=20141003130005)
 
 
-# An Introduction to
+### An Introduction to
 # Language Modeling
-# With N-Grams and Markov Chains
+### With N-Grams and Markov Chains
 
 
 
@@ -20,7 +21,7 @@
 - Minimum Edit Distance
 - Language Modeling
   - **_N-Grams_**
-
+  ===============
 
 - Spelling Correction
   - Noisy Channel
@@ -62,9 +63,17 @@
 
 
 
+# N-grams
+
+
+## Examples
+
+
+## He vs She Trigrams
 ![alt-text](http://chrisharrison.net/projects/trigramviz/HESHEGraphWordsViz1.jpg) "He and She Trigrams"
 
 
+## I vs You Trigrams
 ![alt-text](http://chrisharrison.net/projects/trigramviz/IYOUGraphWordsViz1.jpg) "I and You Trigrams"
 
 
@@ -84,20 +93,53 @@ A Language Modeling Tool
 > N = 4 : "Four-gram", "Five-Gram", etc.
 
 
+## Formal Definition
+#### In the fields of computational linguistics and probability, an n-gram is:
+
+
+#### a contiguous sequence of n items from a given sequence of text or speech.
+
+
+#### The items can be **phonemes, syllables, letters, words or base pairs** according to the application.
+
+
+#### The n-grams typically are collected from a text or speech corpus.
 
 
 
 # N-grams
-## How to calculate
+## Unigram Example
 
-| frequency | word1 | word2 | word3 |
-| --------- | ----- | ----- | ----- |
-| 1419 | much | the | same |
-| 461 | much | more | likely |
-| 432 | much | better | than |
-| 266 | much | more | difficult |
-| 235 | much | of | the |
-| 226 | much | more | than |
+
+> I would not eat them with a Fox!
+
+> I would not eat them in a box!
+
+
+frequency | token | (Probability)
+--------- | ----- | -------------
+2         | `<s>`   |    0.095
+2         | i     |    0.095
+2         | would |    0.095
+2         | not   |    0.095
+2         | eat   |    0.095
+2         | them  |    0.095
+1         | with  |    0.055
+2         | a     |    0.095
+
+
+frequency | token | (Probability)
+--------- | ----- | -------------
+1         | fox   |    0.055
+2         | `</s>`  |    0.095
+1         | in    |    0.055
+1         | a     |    0.055
+1         | box   |    0.055
+21        | 13    |    1
+
+
+numbers get very small, so
+probability is often done in log space
 
 
 # N-grams
@@ -107,21 +149,26 @@ A Language Modeling Tool
 
 > I would not eat them in a box!
 
+
 frequency | word1 | word2 | (Probability)
 --------- | ----- | ----- | -------------
-2         | <s>   | i     |    0.1111
+2         | `<s>`   | i     |    0.1111
 2         | i     | would |    0.1111
 2         | would | not   |    0.1111
 2         | not   | eat   |    0.1111
 2         | eat   | them  |    0.1111
 1         | them  | in    |    0.0556
 1         | in    | a     |    0.0556
+
+
+frequency | word1 | word2 | (Probability)
+--------- | ----- | ----- | -------------
 1         | a     | box   |    0.0556
-1         | box   |  </s> |    0.0556
+1         | box   |  `</s>` |    0.0556
 1         | them  | with  |    0.0556
 1         | with  | a     |    0.0556
 1         | a     | fox   |    0.0556
-1         | fox   | </s>  |    0.0556
+1         | fox   | `</s>`  |    0.0556
 
 
 # N-Grams
@@ -142,12 +189,10 @@ Markalvin and Hobbes
 ![alt-text](http://www.joshmillard.com/markov/calvin/images/calkov-4344106492004371456.jpg)
 
 
-The Big Markovski
-![alt-text](http://joshmillard.com/markov/lebowski/images/markovski-066901970.jpg)
-
-
 Markov College Essays!
-> Today’s world around me blind. In just one of energy. _While straining to live in Ukraine_ with anxiety and broad range of my surroundings, along the ones I felt physically threatened and the rush I burst into a ten-year old who they sought a poem that matters, I was I should be invincible. Who would have paid for granted, but maybe it was asked to further education is an annual overnight toSan Diego, water fun, cheers, a year, I still burn in the invisible enemy in the night when I cannot feel the traffic outside the times I want to a missionary would be neither relived nor reanimated. I assume the status quo, seems fair; I were a stylish figure, for me, and knees.
+
+Today's world around me blind. In just one of energy. _While straining to live in Ukraine_ with anxiety and broad range of my surroundings, along the ones I felt physically threatened and the rush I burst into a ten-year old who they sought a poem that matters, I was I should be invincible. Who would have paid for granted, but maybe it was asked to further education is an annual overnight to San Diego, water fun, cheers, a year, I still burn in the invisible enemy in the night when I cannot feel the traffic outside the times I want to a missionary would be neither relived nor reanimated. I assume the status quo, seems fair; I were a stylish figure, for me, and knees.
+
 
 
 # The Markov Model
@@ -159,18 +204,21 @@ Markov College Essays!
 # Markov Chain
 ## Green Eggs and Ham
 
-### Conditional Probability
+## Bigram Chains
 
+
+#### Conditional Probability of a Bigram Chain
 P(Second|First)
   =>  	P(First and Second) / P(First)
-Given "I would not eat them," what does our markov chain look like?
+Given "I" what does our markov chain look like?
 
 All 100% probability:
 ```
-[<s>, i] => [i, would] => [would, not] => [not, eat] => [eat, them]...
-
+[i, would] => [would, not] => [not, eat] => [eat, them]...
+```
 
 What's the probability of "with a fox"?
+```
 [eat, them]
     => [them, in]
         ( 1/18 )/( 1/9 ) = 50%
@@ -181,6 +229,8 @@ What's the probability of "with a fox"?
 *remember the equation P(W1|W2) = P(W1 and W2) / P(W1)
 ```
 
+
+"I would not eat them with a fox"
 ## Probability is 25% (1 in 4).
 ### Other options are:
 
@@ -192,6 +242,63 @@ What's the probability of "with a fox"?
 
 
 # "in a fox" ???????
+
+
+
+# Markov chains and Trigrams
+P( _Wi_ | _Wi-1Wi-2_ )
+  =>  	P( _Wi_) / P(First)
+Given "I" what does our trigram chain look like?
+
+
+> I would not eat them with a Fox!
+
+> I would not eat them in a box!
+
+
+frequency | word1 | word2 | word3 | (Probability)
+--------- | ----- | ----- | ----- | -------------
+2         | `<s>`   | i     | would |   2/16
+2         | i     | would | not   |   2/16
+2         | would | not   | eat   |   2/16
+2         | not   | eat   | them  |   2/16
+1         | eat   | them  | in    |   1/16
+1         | them  | in    | a     |   1/16
+1         | in    | a     | box   |   1/16
+
+
+frequency | word1 | word2 | word3 | (Probability)
+--------- | ----- | ----- | ----- | -------------
+1         | a     | box   | `</s>`  |   1/16
+1         | eat   | them  | with  |   1/16
+1         | them  | with  | a     |   1/16
+1         | with  | a     | Fox   |   1/16
+1         | a     | fox   | `</s>`  |   1/16
+
+
+All 100% probability:
+```
+[<s>, i, would] => [would, eat, them]
+```
+
+What's the probability of "with a fox"?
+```
+[would, eat, them]
+    => [eat, them, with]
+        ( 1/16 )/( 2/16 ) = 50%
+        => [with, a, Fox]
+           ( 1/18 )/( 1/18 ) = 100%
+        => [in , a, box]
+           ( 1/18 )/( 1/18 ) = 100%
+*remember the equation P(W1|W2) = P(W1 and W2) / P(W1)
+```
+
+
+## Trigram model correctly guesses 50% chance of each direction.
+### But the more "n"s makes your language more fragile.
+
+### There are a number of "backoff" algorithms smartly choose which "n" to use.
+
 
 
 # N-Grams
@@ -206,6 +313,7 @@ What's the probability of "with a fox"?
 <iframe name="ngram_chart" src="https://books.google.com/ngrams/interactive_chart?content=pancake%2Cwaffle%2Cpeanut+butter%2Cmilkshake%2Corange+juice%2Cflaxseed&year_start=1900&year_end=2008&corpus=18&smoothing=3&share=" width=900 height=500 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no></iframe>
 
 
+### More sources in the resources section.
 
 
 # N-Grams
