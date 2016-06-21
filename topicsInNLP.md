@@ -2,6 +2,9 @@
 ![alt-text](http://vignette3.wikia.nocookie.net/moviepedia/images/2/21/Sam-I-Am.png/revision/latest?cb=20141003130005)
 
 
+# [See the presentation I gave at Fullstack Academy in NYC!](https://www.facebook.com/thejohnbackes/posts/10102447253750667)
+
+
 ### An Introduction to
 # Language Modeling
 ### With N-Grams and Markov Chains
