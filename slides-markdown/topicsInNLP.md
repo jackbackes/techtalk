@@ -1,9 +1,18 @@
-# Natural Language Processing
+# "Sam I Am"
+
+
+# An Introduction to
+# Language Modeling
+# With N-Grams and Markov Chains
 
 
 
 # Natural Language Processing
+
+
 ## Topics
+
+
 - Regular Expressions
 - Word Tokenization
 - Word Normalization and Stemming
@@ -53,6 +62,13 @@
 
 
 
+![alt-text](http://chrisharrison.net/projects/trigramviz/HESHEGraphWordsViz1.jpg) "He and She Trigrams"
+
+
+![alt-text](http://chrisharrison.net/projects/trigramviz/IYOUGraphWordsViz1.jpg) "I and You Trigrams"
+
+
+
 # N-Grams
 ## What is it?
 A Language Modeling Tool
@@ -68,11 +84,11 @@ A Language Modeling Tool
 > N = 4 : "Four-gram", "Five-Gram", etc.
 
 
-![HeShe](http://chrisharrison.net/projects/trigramviz/HESHEGraphWordsViz1.jpg) "He and She Trigrams"
 
 
-![IYou](http://chrisharrison.net/projects/trigramviz/IYOUGraphWordsViz1.jpg) "I and You Trigrams"
 
+# N-grams
+## How to calculate
 
 | frequency | word1 | word2 | word3 |
 | --------- | ----- | ----- | ----- |
@@ -82,6 +98,30 @@ A Language Modeling Tool
 | 266 | much | more | difficult |
 | 235 | much | of | the |
 | 226 | much | more | than |
+
+
+# N-grams
+## A Bigram example
+
+> I would not eat them with a Fox!
+
+> I would not eat them in a box!
+
+frequency | word1 | word2 | (Probability)
+--------- | ----- | ----- | -------------
+2         | <s>   | i     |    0.1111
+2         | i     | would |    0.1111
+2         | would | not   |    0.1111
+2         | not   | eat   |    0.1111
+2         | eat   | them  |    0.1111
+1         | them  | in    |    0.0556
+1         | in    | a     |    0.0556
+1         | a     | box   |    0.0556
+1         | box   |  </s> |    0.0556
+1         | them  | with  |    0.0556
+1         | with  | a     |    0.0556
+1         | a     | fox   |    0.0556
+1         | fox   | </s>  |    0.0556
 
 
 # N-Grams
@@ -115,6 +155,43 @@ Markov College Essays!
 
 ![alt-text](http://sookocheff.com/img/nlp/ngram-modeling-with-markov-chains/learned-probabilities.png)
 
+
+# Markov Chain
+## Green Eggs and Ham
+
+### Conditional Probability
+
+P(Second|First)
+  =>  	P(First and Second) / P(First)
+Given "I would not eat them," what does our markov chain look like?
+
+All 100% probability:
+```
+[<s>, i] => [i, would] => [would, not] => [not, eat] => [eat, them]...
+
+
+What's the probability of "with a fox"?
+[eat, them]
+    => [them, in]
+        ( 1/18 )/( 1/9 ) = 50%
+        => [in, a]
+           ( 1/18 )/( 1/18 ) = 100%
+           => [a, box]
+              ( 1/18 )/( 1/9 ) = 50%
+*remember the equation P(W1|W2) = P(W1 and W2) / P(W1)
+```
+
+## Probability is 25% (1 in 4).
+### Other options are:
+
+
+# "in a box"
+
+
+# "with a box"
+
+
+# "in a fox" ???????
 
 
 # N-Grams
