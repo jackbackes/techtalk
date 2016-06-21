@@ -1,4 +1,8 @@
 # Natural Language Processing
+
+
+
+# Natural Language Processing
 ## Topics
 - Regular Expressions
 - Word Tokenization
@@ -64,10 +68,10 @@ A Language Modeling Tool
 > N = 4 : "Four-gram", "Five-Gram", etc.
 
 
-![alt-text][HeShe]
+![HeShe](http://chrisharrison.net/projects/trigramviz/HESHEGraphWordsViz1.jpg) "He and She Trigrams"
 
 
-![alt-text][IYou]
+![IYou](http://chrisharrison.net/projects/trigramviz/IYOUGraphWordsViz1.jpg) "I and You Trigrams"
 
 
 | frequency | word1 | word2 | word3 |
@@ -216,7 +220,3 @@ function wordTree( depth = 2, word = 'the', which = 'one' ) {
 - [Chris Harrison's Web Trigrams](http://www.chrisharrison.net/index.php/Visualizations/WebTrigrams)
 - [Corpus of Contemporary English](http://www.ngrams.info/) - free and paid versions. 520,000,000 words.
 - [Microsoft AI] (https://www.microsoft.com/cognitive-services/en-us/text-analytics-api)
-
-## References:
-[HeShe]: http://chrisharrison.net/projects/trigramviz/HESHEGraphWordsViz1.jpg "He and She Trigrams"
-[IYou]: http://chrisharrison.net/projects/trigramviz/IYOUGraphWordsViz1.jpg "I and You Trigrams"
